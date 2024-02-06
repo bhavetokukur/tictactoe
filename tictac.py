@@ -4,8 +4,8 @@ player2 = 'o'
 
 
 def play(symbol):
-    row = int(input('Chose the row'))
-    column = int(input('Chose the column'))
+    row = int(input('Chose the row '))
+    column = int(input('Chose the column '))
     if table[row][column] != '-':
         raise Exception('Choose another position')
 
@@ -15,6 +15,7 @@ def play(symbol):
 
 
 def seek_for_winner(symbol):
+    # row checking
     for row in table:
         print(row)
         sum = 0
@@ -23,15 +24,31 @@ def seek_for_winner(symbol):
                 sum += 1
         if sum == 3:
             return True
-
-    for x in range(3):
+    # column checking
+    for y in range(3):
         sum = 0
-        for value in table:
-            if value[x] == symbol:
+        for x in range(3):
+            if table[x][y] == symbol:
+                print("table[x][y]", x, y)
                 sum += 1
         if sum == 3:
             return True
-            # print(column[x])
+    # left-top to right-down diagonal checking
+    sum = 0
+    for y in range(3):
+        if table[y][y] == symbol:
+            sum += 1
+        if sum == 3:
+            return True
+    # right-top to left-down checking
+    sum = 0
+    x = 2
+    for y in range(3):
+        if table[x][y] == symbol:
+            sum += 1
+        if sum == 3:
+            return True
+        x -= 1
 
 
 def tie():
